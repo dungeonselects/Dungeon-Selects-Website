@@ -1,0 +1,262 @@
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --motion-fast: 180ms;
+    --motion-steady: 300ms;
+    --motion-out: cubic-bezier(.2,.65,.32,1);
+  }
+
+  .hero-introduced { --hero-reveal-start: 1210ms; }
+  .hero-introduced .hero-atmosphere {
+    animation: temple-appears 1120ms var(--motion-out) var(--hero-reveal-start) backwards;
+  }
+  .hero-introduced :is(.title-word, .hero-tagline, .hero-description, .hero-cards, .hero-actions, .hero-compatibility, .hero-showcase) {
+    animation: torch-arrival 610ms var(--motion-out) calc(var(--hero-reveal-start) + var(--hero-arrival, 0ms)) backwards;
+  }
+  .hero-introduced .title-word { --hero-arrival: 165ms; }
+  .hero-introduced .hero-accent { --hero-arrival: 245ms; }
+  .hero-introduced .hero-tagline { --hero-arrival: 275ms; }
+  .hero-introduced .hero-description { --hero-arrival: 315ms; }
+  .hero-introduced .hero-cards { --hero-arrival: 340ms; }
+  .hero-introduced .hero-actions { --hero-arrival: 385ms; }
+  .hero-introduced .hero-compatibility { --hero-arrival: 45ms; }
+  .hero-introduced .hero-showcase { --hero-arrival: 435ms; }
+  .hero-introduced .hero-embers i {
+    animation: ember-drifts 2700ms var(--motion-out) calc(var(--hero-reveal-start) + var(--ember-delay, 0ms)) backwards;
+  }
+  .hero-introduced .hero-embers i:nth-child(2n) { --ember-delay: 160ms; }
+  .hero-introduced .hero-embers i:nth-child(3n) { --ember-delay: 320ms; }
+
+  .hero-embers::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 29rem;
+    aspect-ratio: 1;
+    transform: translate3d(calc(var(--torch-x, 0px) - 50%), calc(var(--torch-y, 0px) - 50%), 0);
+    background: radial-gradient(closest-side,#ffc47630, #e18a3012 60%, transparent);
+    opacity: 0;
+    transition: opacity 350ms ease-out;
+  }
+  .torch-lit .hero-embers::after { opacity: 1; }
+  :is(.awaiting-entrance, .entered-viewport) {
+    --entrance-opacity: .26;
+    --entrance-offset: 0 12px;
+  }
+  .section-heading:is(.awaiting-entrance, .entered-viewport) {
+    --entrance-opacity: .34;
+    --entrance-offset: -11px 0;
+  }
+  .awaiting-entrance {
+    opacity: var(--entrance-opacity);
+    translate: var(--entrance-offset);
+  }
+  .entered-viewport {
+    animation: content-enters 480ms var(--motion-out) var(--entrance-delay, 0ms) backwards;
+  }
+  :is(.download-panel, .about-gallery).entered-viewport { animation-duration: 650ms; }
+
+  .button, .control {
+    transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease,
+      border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease,
+      transform var(--motion-fast) var(--motion-out);
+  }
+  .button-primary { position: relative; overflow: clip; }
+  .button-primary::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(112deg, transparent 40%, #fff5d290 51%, transparent 65%);
+    transform: translateX(-102%);
+  }
+  .button-primary:is(:hover, :focus-visible):not([aria-disabled="true"])::after {
+    animation: gilded-sweep 650ms var(--motion-out);
+  }
+  .button .icon-arrow, .back-top .pixel-icon,
+  .site-nav .pixel-icon, .brand-mark, .gallery-navigation .pixel-icon {
+    transition: translate var(--motion-fast) var(--motion-out), filter var(--motion-fast) ease;
+  }
+  .button:is(:hover, :focus-visible) .icon-arrow,
+  .gallery-next:is(:hover, :focus-visible) .pixel-icon { translate: 3px 0; }
+  .gallery-previous:is(:hover, :focus-visible) .pixel-icon { translate: -3px 0; }
+  .back-top:is(:hover, :focus-visible) .pixel-icon { translate: 0 -3px; }
+  .brand:is(:hover, :focus-visible) .brand-mark {
+    translate: 0 -3px;
+    filter: drop-shadow(0 0 8px #f6ad595c);
+  }
+  .site-nav a { position: relative; }
+  .site-nav a::after {
+    content: "";
+    position: absolute;
+    inset: auto .4rem 2px;
+    height: 1px;
+    background: linear-gradient(90deg,transparent,var(--gold),transparent);
+    transform: scaleX(0);
+    transition: transform var(--motion-steady) var(--motion-out);
+  }
+  .site-nav a:is(:hover, :focus-visible, [aria-current="location"])::after { transform: scaleX(1); }
+  .site-nav a:is(:hover, :focus-visible) .pixel-icon { translate: 0 -3px; filter: brightness(1.25); }
+  .back-top:not([hidden]) { animation: toast-arrives 260ms var(--motion-out); }
+  .hero-thumb { transition: border-color var(--motion-fast) ease; }
+  .hero-thumb::after {
+    transform: scaleX(.25);
+    transition: opacity var(--motion-fast) ease, transform var(--motion-steady) var(--motion-out);
+  }
+  .hero-thumb[aria-current="true"]::after { transform: scaleX(1); }
+  .hero-thumb:active img { transform: scale(.96); }
+  .hero-zoom:active .zoom-mark, .gallery-trigger:active .zoom-mark { scale: .92; }
+
+  :is(.stat, .about-card, .highlight, .step) {
+    transition: transform var(--motion-steady) var(--motion-out), border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease, box-shadow var(--motion-steady) ease;
+  }
+  :is(.stat, .about-card, .highlight, .step) .slot {
+    transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease;
+  }
+  :is(.stat, .about-card, .highlight, .step) .slot .pixel-icon {
+    transition: transform var(--motion-steady) var(--motion-out), filter var(--motion-steady) ease;
+  }
+  .about-shot { overflow: clip; }
+  .about-shot img, .download-art { transition: transform 620ms var(--motion-out), filter 420ms ease; }
+  .about-shot figcaption { transition: color var(--motion-fast) ease; }
+  .download-panel:focus-within .download-art { transform: scale(1.035); }
+  .highlight:focus-within { border-color: #ad824f; }
+  .step-tip::before {
+    background: linear-gradient(90deg, #e0ad60, #745038) 0 0 / 0 100% no-repeat, var(--seam);
+    transition: background-size 420ms var(--motion-out);
+  }
+  .faq-list details { transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease; }
+  .faq-list details[open] { background-color: #251c25; }
+  .faq-list details[open] > p { animation: answer-appears 250ms ease-out both; }
+  .disclosure::after { transition: scale var(--motion-steady) var(--motion-out); }
+  .footer-grid ul a { position: relative; transition: color var(--motion-fast) ease; }
+  .footer-grid ul a::after {
+    position: absolute;
+    inset: auto 0 .4rem;
+    height: 1px;
+    background: var(--accent);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--motion-steady) var(--motion-out);
+  }
+  .footer-grid ul a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+
+  @media (hover: hover) {
+    .button:not(:active, [aria-disabled="true"]):hover { transform: translateY(-2px); }
+    :is(.stat, .about-card, .highlight, .step):hover { background-color: #29202a; border-color: #94704b; }
+    :is(.about-card, .highlight, .step):hover {
+      transform: translateY(-4px);
+      box-shadow: 0 7px 0 var(--deep), 0 12px 24px #09070d66;
+    }
+    :is(.stat, .about-card, .highlight, .step):hover .slot {
+      border-color: #ad824f;
+      background-color: #30231e;
+    }
+    :is(.stat, .about-card, .highlight, .step):hover .slot .pixel-icon {
+      transform: translateY(-3px) scale(1.1);
+      filter: drop-shadow(0 3px 3px #0c080c);
+    }
+    .about-shot:hover img { transform: scale(1.075); filter: brightness(1.12); }
+    .about-shot:hover figcaption { color: var(--gold); }
+    .step:hover .step-tip::before { background-size: 100% 100%; }
+    .download-panel:hover .download-art { transform: scale(1.045); filter: brightness(1.09); }
+  }
+
+  @media (max-width: 1080px) {
+    .js .site-nav {
+      transform: translateY(-9px);
+      transition: opacity var(--motion-fast) ease, transform var(--motion-steady) var(--motion-out),
+        visibility 0s var(--motion-steady);
+    }
+    .js .site-nav.is-open { transform: none; transition-delay: 0s; }
+    .js .site-nav.is-open li { animation: menu-item-enters 250ms var(--motion-out) backwards; }
+    .js .site-nav.is-open li:nth-child(2) { animation-delay: 32ms; }
+    .js .site-nav.is-open li:nth-child(3) { animation-delay: 64ms; }
+    .js .site-nav.is-open li:nth-child(4) { animation-delay: 96ms; }
+  }
+
+  @supports (animation-timeline: scroll(root block)) {
+    .site-header::after {
+      position: absolute;
+      inset: auto 0 -1px;
+      height: 2px;
+      content: "";
+      background: linear-gradient(90deg,#96683e,#f5c975);
+      transform-origin: left;
+      pointer-events: none;
+      animation: reading-progress 1ms linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+  @supports selector(details::details-content) and (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+    .faq-list details { interpolate-size: allow-keywords; }
+    .faq-list details::details-content {
+      block-size: 0;
+      content-visibility: hidden;
+      overflow: clip;
+      transition: block-size var(--motion-steady) var(--motion-out),
+        content-visibility var(--motion-steady) allow-discrete;
+    }
+    .faq-list details[open]::details-content { block-size: auto; content-visibility: visible; }
+  }
+  @supports (transition-behavior: allow-discrete) and (overlay: auto) {
+    .gallery-dialog {
+      opacity: 0;
+      transform: translateY(10px) scale(.98);
+      transition: opacity 210ms ease, transform 230ms var(--motion-out),
+        display 230ms allow-discrete, overlay 230ms allow-discrete;
+    }
+    .gallery-dialog[open] { opacity: 1; transform: none; }
+    .gallery-dialog::backdrop {
+      opacity: 0;
+      transition: opacity 230ms ease, display 230ms allow-discrete, overlay 230ms allow-discrete;
+    }
+    .gallery-dialog[open]::backdrop { opacity: 1; }
+    @starting-style {
+      .gallery-dialog[open] { opacity: 0; transform: translateY(10px) scale(.98); }
+      .gallery-dialog[open]::backdrop { opacity: 0; }
+    }
+  }
+  @supports not ((transition-behavior: allow-discrete) and (overlay: auto)) {
+    .gallery-dialog[open] { animation: toast-arrives 240ms var(--motion-out); }
+  }
+}
+
+@keyframes temple-appears {
+  from { scale: 1.035; opacity: .48; }
+  to { scale: 1; opacity: 1; }
+}
+@keyframes torch-arrival {
+  from { opacity: .36; translate: 0 13px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes ember-drifts {
+  from { opacity: 0; translate: -8px 24px; }
+  30% { opacity: calc(var(--opacity, .53) + .19); }
+  to { opacity: var(--opacity, .53); translate: 0 0; }
+}
+@keyframes content-enters {
+  from { opacity: var(--entrance-opacity); translate: var(--entrance-offset); }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes gilded-sweep { to { transform: translateX(102%); } }
+@keyframes toast-arrives {
+  from { opacity: .15; translate: 0 9px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes answer-appears {
+  from { opacity: .36; translate: 0 -4px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes menu-item-enters {
+  from { opacity: .24; translate: -6px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes reading-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .button:not([aria-disabled="true"]):active, .control:active,
+  .hero-thumb:is(:hover,:focus-visible) img,
+  .gallery-trigger:is(:hover,:focus-visible) .gallery-image img { transform: none; }
+}

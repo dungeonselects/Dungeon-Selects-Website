@@ -1,0 +1,139 @@
+.opening-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.opening-dialog::backdrop { background: transparent; }
+html:has(.opening-dialog[open]) { overflow: hidden; }
+
+.opening-door {
+  position: absolute;
+  inset-block: 0;
+  width: calc(50% + 5px);
+  background:
+    var(--texture),
+    radial-gradient(ellipse at var(--light-side) center, #4d3026 0, #231921 34%, #151017 76%);
+}
+.opening-door-left {
+  --door-end: -101%;
+  --light-side: 100%;
+  left: 0;
+  border-right: 2px solid #875636;
+}
+.opening-door-right {
+  --door-end: 101%;
+  --light-side: 0%;
+  right: 0;
+  border-left: 2px solid #875636;
+}
+.opening-door::before, .opening-door::after {
+  position: absolute;
+  inset: 5%;
+  content: "";
+  border: 1px solid #b98a4e26;
+}
+.opening-door::after {
+  inset: 6.5%;
+  border-style: double;
+  border-width: 3px;
+  border-color: #a2764030;
+}
+.opening-light {
+  position: absolute;
+  inset: 10% auto 10% 50%;
+  width: 2px;
+  background: linear-gradient(transparent, #bf792b 26%, #fee09a 50%, #bf792b 74%, transparent);
+  box-shadow: 0 0 22px 4px #e796495c;
+  opacity: .6;
+}
+.opening-light::after {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: min(28rem, 72vw);
+  height: 1px;
+  content: "";
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, #e4a557, transparent);
+  opacity: 0;
+}
+.opening-sign {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1.6rem;
+  padding: 1rem 1rem 3.5rem;
+  pointer-events: none;
+}
+.opening-sign img {
+  width: clamp(4.5rem, 11vw, 7rem);
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 32px #ce904669) drop-shadow(0 5px 0 #100c0b);
+}
+.opening-sign > span {
+  padding: .7em .5em .37em;
+  background: radial-gradient(ellipse, #17121a 45%, transparent 75%);
+  color: #fff1d4;
+  font: 400 clamp(1.45rem, 5.35vw, 4.375rem)/1 var(--display);
+  letter-spacing: -.015em;
+  text-align: center;
+  text-shadow: 0 3px 0 #110d12;
+  text-transform: uppercase;
+}
+.opening-sign > span > span { color: var(--gold); }
+.opening-dialog.is-playing .opening-door { animation: open-door 590ms cubic-bezier(.77,0,.18,1) 1370ms both; }
+.opening-dialog.is-playing .opening-light { animation: kindle 1490ms ease-out both; }
+.opening-dialog.is-playing .opening-light::after { animation: ignite-across 1040ms ease-out 260ms both; }
+.opening-dialog.is-playing .opening-sign { animation: reveal-sign 1580ms cubic-bezier(.18,.66,.25,1) both; }
+
+.opening-dialog.is-skipping .opening-door { animation: skip-door var(--skip-duration) cubic-bezier(.45,.1,.24,1) both; }
+.opening-dialog.is-skipping .opening-sign { animation: skip-sign var(--skip-duration) ease-out both; }
+.opening-dialog.is-skipping .opening-light { animation: skip-light var(--skip-duration) ease-out both; }
+.hero-skip-reveal .hero-inner { animation: reveal-after-skip 640ms ease-out; }
+
+@keyframes open-door { to { transform: translateX(var(--door-end)); } }
+@keyframes skip-door {
+  from { transform: var(--skip-from, none); }
+  to { transform: translateX(var(--door-end)); }
+}
+@keyframes skip-sign {
+  from { opacity: var(--skip-opacity); transform: var(--skip-from); }
+  70%, 100% { opacity: 0; transform: translateY(-.9rem) scale(.985); }
+}
+@keyframes skip-light {
+  from { opacity: var(--skip-opacity); transform: var(--skip-from); }
+  72%, 100% { opacity: 0; transform: scaleY(1); }
+}
+@keyframes reveal-after-skip {
+  from { opacity: .7; transform: translateY(.45rem); }
+}
+@keyframes kindle {
+  0% { opacity: .15; transform: scaleY(.42); }
+  35%, 80% { opacity: .9; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(1); }
+}
+@keyframes ignite-across {
+  0% { opacity: 0; scale: .12 1; }
+  32% { opacity: .75; }
+  100% { opacity: 0; scale: 1 1; }
+}
+@keyframes reveal-sign {
+  0% { opacity: 0; transform: translateY(9px) scale(.94); }
+  28%, 72% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-6px) scale(1.035); }
+}
